@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff7f8">
+<title>دعوة فرح محمد ورانيا</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:linear-gradient(145deg,#fff7f8,#f8eef2);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#4b2935;display:flex;justify-content:center;align-items:center;padding:18px}
+.wrap{width:min(100%,430px);text-align:center}
+.hint{font-size:14px;opacity:.7;margin-bottom:14px}
+.envelope{position:relative;width:100%;max-width:360px;height:235px;margin:auto;cursor:pointer;touch-action:manipulation;perspective:900px}
+.env-body{position:absolute;inset:0;background:#fff;border:1px solid #e8cbd4;border-radius:18px;box-shadow:0 18px 45px #6b334422;overflow:hidden}
+.front{position:absolute;inset:0;background:linear-gradient(135deg,#f7dce5,#edc5d2);clip-path:polygon(0 0,100% 0,50% 58%);z-index:4;transform-origin:top;transition:transform .75s ease}
+.front:after{content:"";position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:#fff7f8;border:2px solid #c48a9d;box-shadow:0 5px 15px #6b334422}
+.heart{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);z-index:5;font-size:28px}
+.side{position:absolute;inset:0;background:#f2d3dd;clip-path:polygon(0 0,50% 58%,0 100%);z-index:3}
+.side2{position:absolute;inset:0;background:#f2d3dd;clip-path:polygon(100% 0,50% 58%,100% 100%);z-index:3}
+.bottom{position:absolute;inset:0;background:#efd0da;clip-path:polygon(0 100%,50% 48%,100% 100%);z-index:3}
+.seal{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:6;color:#8d5265;font-weight:700}
+.open .front{transform:rotateX(180deg);z-index:2}
+.details{display:none;margin-top:22px;animation:fade .8s ease}
+.open + .details{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+h1{margin:0;font-size:34px;color:#8d5265}
+.names{font-family:Georgia,serif;font-size:30px;margin:8px 0 18px}
+.card{background:#ffffffcc;border:1px solid #ead4dc;border-radius:22px;padding:18px;box-shadow:0 10px 30px #6b334414;margin-top:12px}
+.row{margin:9px 0;font-size:16px}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px}
+.unit{background:#fff;border:1px solid #ead4dc;border-radius:14px;padding:9px 3px}
+.num{font-size:22px;font-weight:800;color:#8d5265}
+.lab{font-size:11px;opacity:.65}
+.note{font-size:13px;line-height:1.7;margin-top:15px;color:#76505c}
+button{border:0;border-radius:999px;background:#8d5265;color:white;padding:10px 17px;font-size:14px;margin-top:13px;touch-action:manipulation}
+small{display:block;margin-top:12px;opacity:.55}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hint">اضغط على الظرف مرة واحدة 💌</div>
+  <div id="envelope" class="envelope" role="button" tabindex="0" aria-label="فتح دعوة الفرح">
+    <div class="env-body"></div>
+    <div class="side"></div><div class="side2"></div><div class="bottom"></div>
+    <div class="front"></div><div class="heart">♥</div><div class="seal">افتح الدعوة</div>
+  </div>
+
+  <section class="details">
+    <h1>دعوة فرح</h1>
+    <div class="names">محمد ❤️ رانيا</div>
+    <div class="card">
+      <div class="row">📅 <b>10 أكتوبر 2027</b></div>
+      <div class="row">🕗 <b>الساعة 8:00 مساءً</b></div>
+      <div class="row">📍 <b>قاعة ميت ميمون</b><br>على طريق الإسكندرية</div>
+      <div class="count">
+        <div class="unit"><div id="d" class="num">--</div><div class="lab">يوم</div></div>
+        <div class="unit"><div id="h" class="num">--</div><div class="lab">ساعة</div></div>
+        <div class="unit"><div id="m" class="num">--</div><div class="lab">دقيقة</div></div>
+        <div class="unit"><div id="s" class="num">--</div><div class="lab">ثانية</div></div>
+      </div>
+      <div class="note"><b>ملحوظة:</b> نحب ننبه حضراتكم أن المكان لا يتوفر به طعام. ❤️</div>
+      <button id="musicBtn" type="button">🎵 تشغيل الموسيقى</button>
+      <small>للموسيقى: ضع ملفًا باسم <b>music.mp3</b> بجوار هذا الملف.</small>
+    </div>
+  </section>
+</div>
+
+<audio id="music" src="music.mp3" loop preload="auto"></audio>
+<script>
+const env=document.getElementById("envelope");
+const music=document.getElementById("music");
+const btn=document.getElementById("musicBtn");
+const target=new Date("2027-10-10T20:00:00+03:00").getTime();
+
+function openInvite(){
+  if(env.classList.contains("open")) return;
+  env.classList.add("open");
+  music.play().then(()=>btn.textContent="🔇 إيقاف الموسيقى").catch(()=>{});
+}
+env.addEventListener("click",openInvite);
+env.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openInvite();}});
+
+btn.addEventListener("click",()=>{
+  if(music.paused){music.play().then(()=>btn.textContent="🔇 إيقاف الموسيقى").catch(()=>{});}
+  else{music.pause();btn.textContent="🎵 تشغيل الموسيقى";}
+});
+
+function tick(){
+  let x=Math.max(0,target-Date.now());
+  const d=Math.floor(x/86400000); x%=86400000;
+  const h=Math.floor(x/3600000); x%=3600000;
+  const m=Math.floor(x/60000); x%=60000;
+  const s=Math.floor(x/1000);
+  document.getElementById("d").textContent=d;
+  document.getElementById("h").textContent=String(h).padStart(2,"0");
+  document.getElementById("m").textContent=String(m).padStart(2,"0");
+  document.getElementById("s").textContent=String(s).padStart(2,"0");
+}
+tick();setInterval(tick,1000);
+</script>
+</body>
+</html>
